@@ -20,6 +20,7 @@ jobs:
           BRANCH: frontend
           FOLDER: frontend
           GITHUB_TOKEN: ${{ secrets.TOKEN }}
+        continue-on-error: true
     
       - name: Deploy Backend Code
         if: github.event.head_commit.message != 'skip backend'
@@ -29,3 +30,4 @@ jobs:
           BRANCH: backend
           FOLDER: backend
           GITHUB_TOKEN: ${{ secrets.TOKEN }}
+        continue-on-error: true
