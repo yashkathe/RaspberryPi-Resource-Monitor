@@ -1,0 +1,37 @@
+{
+  "name": "rpi-metrics-server",
+  "version": "1.0.0",
+  "description": "backend server for reading resource utilisation of RASPBERRY PI",
+  "main": "src/server.ts",
+  "scripts": {
+    "start": "tsc && nodemon dist/server.js",
+    "build": "tsc",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yashkathe/RealTime-RaspberryPI-Metrics-TS.git"
+  },
+  "keywords": [
+    "rpi",
+    "raspberry-pi",
+    "rpi-metrics",
+    "raspberry-pi-metrics"
+  ],
+  "author": "Yash Sanjay Kathe",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/yashkathe/RealTime-RaspberryPI-Metrics-TS/issues"
+  },
+  "homepage": "https://github.com/yashkathe/RealTime-RaspberryPI-Metrics-TS#readme",
+  "devDependencies": {
+    "@types/cors": "^2.8.17",
+    "typescript": "^5.4.5"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "nodemon": "^3.1.3",
+    "socket.io": "^4.7.5"
+  }
+}
