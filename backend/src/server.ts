@@ -1,8 +1,9 @@
-import express from 'express';
+import express, { Request, Response } from 'express';
 import dotenv from 'dotenv';
 import cors from 'cors';
 import { Server as socketServer } from 'socket.io';
 import { createServer } from 'http';
+import router from './routes/routes'
 import { calculateRamUtil } from './helpers/helpers';
 
 // load the .env file
@@ -12,6 +13,14 @@ const app = express();
 
 // setting cors
 app.use(cors());
+
+// setting routes
+app.use('/API', router)
+
+// TEST ROUTE
+app.get('/test', (req: Request, res: Response) => {
+    res.json('Hello World!');
+});
 
 // setting PORT number
 const PORT: number = process.env.PORT ? parseInt(process.env.PORT) : 4000;
@@ -26,10 +35,6 @@ const server = new socketServer(httpServer, {
     }
 });
 
-app.get('/', (req, res) => {
-    res.send('Hello World!');
-});
-
 // start listening on socket.io
 server.on("connection", (socket) => {
     console.log("socket connected");
@@ -38,6 +43,7 @@ server.on("connection", (socket) => {
     const ramInterval = setInterval(() => {
         try {
             const ramUsage = calculateRamUtil();
+            console.log(ramUsage)
             socket.emit('ramUsage', ramUsage);
         } catch (error) {
             console.error('Error calculating RAM usage:', error);
