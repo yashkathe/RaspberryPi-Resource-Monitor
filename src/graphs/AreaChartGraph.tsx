@@ -6,10 +6,11 @@ import Wrapper from '../shared/Wrapper';
 // INTERFACE
 interface AreaChartProps {
     data: { name: string, x: number }[];
+    dataLabel : string
 }
 
 // COMPONENT
-const AreaChartGraph: React.FC<AreaChartProps> = ({ data }) => {
+const AreaChartGraph: React.FC<AreaChartProps> = ({ data, dataLabel}) => {
     return (
         <Wrapper>
             <ResponsiveContainer width="100%" height="100%">
@@ -21,21 +22,12 @@ const AreaChartGraph: React.FC<AreaChartProps> = ({ data }) => {
                         </linearGradient>
                     </defs>
                     <XAxis stroke="#ccc" />
-                    <YAxis stroke="#ccc" />
+                    <YAxis stroke="#ccc"/>
                     <Legend />
                     <CartesianGrid strokeDasharray="2 2" stroke="rgba(204, 204, 204, 0.5)" />
                     <Tooltip />
-                    <Area name="RAM Utilisation" type="monotone" dataKey="x" stroke="#4CAF50" fillOpacity={1} fill="url(#colorUv)" />
+                    <Area name={dataLabel} type="monotone" dataKey="x" stroke="#4CAF50" fillOpacity={1} fill="url(#colorUv)" />
                 </AreaChart>
-                {/* <LineChart style={{ backgroundColor: '#2b2b3d' }} width={730} height={250} data={data}
-                    margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
-                    <CartesianGrid strokeDasharray="3 3" />
-                    <XAxis/>
-                    <YAxis />
-                    <Tooltip />
-                    <Legend />
-                    <Line type="monotone" dataKey="x" stroke="#4CAF50" />
-                </LineChart> */}
             </ResponsiveContainer>
 
         </Wrapper>
