@@ -5,10 +5,8 @@ import AreaChartGraph from '../graphs/AreaChartGraph';
 import Spinner from '../shared/Spinner';
 
 import classes from './RamUtil.module.css'
-import Wrapper from '../shared/Wrapper';
 
 //INTERFACE
-
 interface isRamUtil {
     name: string;
     x: number;
@@ -20,6 +18,7 @@ const RamUtil: React.FC = () => {
     const [data, setData] = useState<isRamUtil[]>([])
     const [isLoading, setIsLoading] = useState<boolean>(true);
 
+    // connect the socket
     useEffect(() => {
 
         const socket = socketIOClient("http://192.167.0.119:4001/");
@@ -39,13 +38,11 @@ const RamUtil: React.FC = () => {
     }, [])
 
     return (
-        <Wrapper>
             <div className={classes.parent}>
                 <h1>Ram Utilization</h1>
                 {isLoading && <Spinner />}
-                {!isLoading && <AreaChartGraph data={data} />}
+                {!isLoading && <AreaChartGraph data={data} dataLabel='RAM utilisation'/>}
             </div>
-        </Wrapper>
     )
 }
 
