@@ -43,7 +43,6 @@ server.on("connection", (socket) => {
     const ramInterval = setInterval(() => {
         try {
             const ramUsage = calculateRamUtil();
-            console.log(ramUsage)
             socket.emit('ramUsage', ramUsage);
         } catch (error) {
             console.error('Error calculating RAM usage:', error);
