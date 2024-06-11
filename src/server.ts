@@ -4,7 +4,7 @@ import cors from 'cors';
 import { Server as socketServer } from 'socket.io';
 import { createServer } from 'http';
 import router from './routes/routes'
-import { calculateRamUtil } from './helpers/helpers';
+import { calculateRamUtil, calculateCpuUtil } from './helpers/helpers';
 
 // load the .env file
 dotenv.config();
@@ -39,6 +39,8 @@ const server = new socketServer(httpServer, {
 server.on("connection", (socket) => {
     console.log("socket connected");
 
+    // ______________MAIN FUNCTIONS______________
+
     // RAM
     const ramInterval = setInterval(() => {
         try {
@@ -49,9 +51,23 @@ server.on("connection", (socket) => {
         }
     }, 1000);
 
+    // CPU
+
+    const cpuInterval = setInterval(async () => {
+        try{
+            const cpuUsage = await calculateCpuUtil()
+            socket.emit("cpuUsage", cpuUsage)
+        }catch(error){
+            console.error('Error calculating CPU usage:', error);
+        }
+    }, 1000)
+
+    // ______________CLEAN UP______________
+
     // CLEAR INTERVALS ON DISCONNECTS
     socket.on("disconnect", () => {
         clearInterval(ramInterval);
+        clearInterval(cpuInterval);
         console.log("socket disconnected");
     });
 
