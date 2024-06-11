@@ -1,13 +1,8 @@
 import React from 'react';
-import { AreaChart, XAxis, YAxis, CartesianGrid, Tooltip, Area, LineChart, Legend, Line, ResponsiveContainer } from 'recharts'
+import { AreaChartProps } from '../types/types';
+import { AreaChart, XAxis, YAxis, CartesianGrid, Tooltip, Area, Legend, ResponsiveContainer } from 'recharts'
 
 import Wrapper from '../shared/Wrapper';
-
-// INTERFACE
-interface AreaChartProps {
-    data: { name: string, x: number }[];
-    dataLabel : string
-}
 
 // COMPONENT
 const AreaChartGraph: React.FC<AreaChartProps> = ({ data, dataLabel}) => {
@@ -29,7 +24,6 @@ const AreaChartGraph: React.FC<AreaChartProps> = ({ data, dataLabel}) => {
                     <Area name={dataLabel} type="monotone" dataKey="x" stroke="#4CAF50" fillOpacity={1} fill="url(#colorUv)" />
                 </AreaChart>
             </ResponsiveContainer>
-
         </Wrapper>
     )
 }

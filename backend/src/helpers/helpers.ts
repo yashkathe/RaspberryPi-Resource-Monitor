@@ -1,7 +1,7 @@
 import os from 'os'
 import si from 'systeminformation'
 
-import { isRamUtil, isSwapUtil } from '../types/types'
+import { isCpuUtil, isRamUtil, isSwapUtil, isError } from '../types/types'
 
 let limit: number = 10
 
@@ -9,6 +9,7 @@ let idx: number = 0
 
 let RAM: isRamUtil[] = []
 let SWAP: isSwapUtil[] = []
+let CPU: isCpuUtil[] = []
 
 // CALCULATING RAM UTILISATION
 export const calculateRamUtil = (): isRamUtil[] => {
@@ -61,6 +62,28 @@ export const calculateSwapUtil = async () => {
 
         return { message: error }
 
+    }
+
+}
+
+// CALCULATE CPU UTILISATION FOR EACH CORE
+export const calculateCpuUtil = async (): Promise<isCpuUtil[] | isError> => {
+
+    const cpuInfo = os.cpus()
+    const numCores = cpuInfo.length
+
+    try {
+
+        const load = await si.currentLoad()
+        const coresUsage = load.cpus.map((cpu, index) => ({
+            core: index,
+            load: cpu.load
+        }));
+
+        return coresUsage
+
+    } catch (error: any) {
+        return { message: error }
     }
 
 }
