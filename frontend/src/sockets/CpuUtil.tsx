@@ -38,7 +38,12 @@ const CpuUtil: React.FC = () => {
         <div className={classes.parent}>
             <h1>CPU Utilization</h1>
             {isLoading && <Spinner />}
-            {!isLoading && <BarChartGraph data={data} dataLabel="CPU Core Utilization"/>}
+            {!isLoading && <BarChartGraph
+                data={data}
+                dataLabel="Processor Usage"
+                yLimit={[0, 100]}
+                yTicks={5}
+            />}
         </div>
     )
 }

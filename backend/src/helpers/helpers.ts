@@ -1,15 +1,17 @@
 import os from 'os'
 import si from 'systeminformation'
+import { getGpuTemperature, getCpuTemperature } from 'raspberrypi-sys-info';
 
-import { isCpuUtil, isRamUtil, isSwapUtil, isError } from '../types/types'
+import { isCpuUtil, isRamUtil, isError, isTemp } from '../types/types'
 
 let limit: number = 10
 
 let idx: number = 0
 
 let RAM: isRamUtil[] = []
-let SWAP: isSwapUtil[] = []
-let CPU: isCpuUtil[] = []
+let SWAP: isRamUtil[] = []
+let GPU_TEMP: isTemp[] = []
+let CPU_TEMP: isTemp[] = []
 
 // CALCULATING RAM UTILISATION
 export const calculateRamUtil = (): isRamUtil[] => {
@@ -24,14 +26,8 @@ export const calculateRamUtil = (): isRamUtil[] => {
     // convert to MB
     ramUtil = +(ramUtil / (1024 * 1024)).toFixed(2)
 
-    if (RAM.length >= limit) {
-
-        RAM.shift()
-        RAM.push({ name: `${idx} sec`, x: ramUtil })
-
-    } else {
-        RAM.push({ name: `${idx} sec`, x: ramUtil })
-    }
+    if (RAM.length >= limit) RAM.shift()
+    RAM.push({ name: `${idx} sec`, x: ramUtil })
 
     return RAM
 }
@@ -47,14 +43,8 @@ export const calculateSwapUtil = async () => {
 
         let freeSwap = swapData.swapfree;
 
-        if (SWAP.length >= limit) {
-
-            SWAP.shift()
-            SWAP.push({ name: `${idx} sec`, x: freeSwap })
-
-        } else {
-            SWAP.push({ name: `${idx} sec`, x: freeSwap })
-        }
+        if (SWAP.length >= limit) SWAP.shift()
+        SWAP.push({ name: `${idx} sec`, x: freeSwap })
 
         return SWAP
 
@@ -84,6 +74,50 @@ export const calculateCpuUtil = async (): Promise<isCpuUtil[] | isError> => {
 
     } catch (error: any) {
         return { message: error }
+    }
+
+}
+
+// CALCULATE GPU TEMPERATURE
+export const getGpuTemp = async () => {
+
+    idx += 1
+
+    try {
+
+        const gpuTemp = await getGpuTemperature();
+
+        if (GPU_TEMP.length >= limit) GPU_TEMP.shift()
+        GPU_TEMP.push({ name: `${idx} sec`, temp: +gpuTemp })
+
+        return GPU_TEMP
+
+    } catch (error: any) {
+
+        return { message: error }
+
+    }
+
+}
+
+// CALCULATE CPU TEMPERATURE
+export const getCpuTemp = async () => {
+
+    idx += 1
+
+    try {
+
+        const cpuTemp = await getCpuTemperature();
+
+        if (CPU_TEMP.length >= limit) CPU_TEMP.shift()
+        CPU_TEMP.push({ name: `${idx} sec`, temp: +cpuTemp })
+
+        return CPU_TEMP
+
+    } catch (error: any) {
+
+        return { message: error }
+
     }
 
 }

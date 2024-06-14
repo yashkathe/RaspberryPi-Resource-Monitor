@@ -5,7 +5,9 @@ export interface AreaChartProps {
 
 export interface BarChartProps {
     data: {core: number, load: number}[];
-    dataLabel: string
+    dataLabel: string,
+    yTicks: number,
+    yLimit: [number, number]
 }
 
 export interface isRamUtil {
