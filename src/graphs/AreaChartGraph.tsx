@@ -12,8 +12,8 @@ const AreaChartGraph: React.FC<AreaChartProps> = ({ data, dataLabel}) => {
                 <AreaChart data={data} style={{ backgroundColor: '#2b2b3d' }} margin={{ top: 25, right: 25, left: 0, bottom: 0 }}>
                     <defs>
                         <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
-                            <stop offset="5%" stopColor="rgba(76, 175, 80, 1)" stopOpacity={0.8} />
-                            <stop offset="95%" stopColor="rgba(76, 175, 80, 1)" stopOpacity={0.5} />
+                            <stop offset="5%" stopColor="rgba(76, 175, 80, 1)" stopOpacity={0.9} />
+                            <stop offset="95%" stopColor="rgba(76, 175, 80, 1)" stopOpacity={0.7} />
                         </linearGradient>
                     </defs>
                     <XAxis stroke="#ccc" />
