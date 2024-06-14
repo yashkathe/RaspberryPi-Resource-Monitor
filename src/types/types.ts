@@ -3,14 +3,14 @@ export type isRamUtil = {
     x: number
 }
 
-export type isSwapUtil = {
-    name: string;
-    x: number
-}
-
 export type isCpuUtil = {
     core: number;
     load: number
+}
+
+export type isTemp = {
+    name: string;
+    temp: number
 }
 
 export type isRamStat = {
