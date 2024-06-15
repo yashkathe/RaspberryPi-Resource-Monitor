@@ -16,7 +16,7 @@ const RamUtil: React.FC = () => {
         <div className={classes.parent}>
             <h1>Ram Utilization</h1>
             {isLoading && <Spinner />}
-            {!isLoading && <AreaChartGraph data={data} dataLabel='RAM utilisation' />}
+            {!isLoading && <AreaChartGraph data={data} dataLabel='RAM utilisation' dataX='x'/>}
         </div>
     )
 }
