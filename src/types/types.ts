@@ -1,6 +1,7 @@
 export interface AreaChartProps {
-    data: { name: string, x: number }[];
+    data: { name: string, x: number | string }[];
     dataLabel : string
+    dataX: string
 }
 
 export interface BarChartProps {
@@ -18,4 +19,9 @@ export interface isRamUtil {
 export interface isCpuUtil {
     core: number;
     load: number;
+}
+
+export interface isTemperature {
+    name: string;
+    x: number;
 }

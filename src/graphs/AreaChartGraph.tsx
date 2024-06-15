@@ -5,7 +5,7 @@ import { AreaChart, XAxis, YAxis, CartesianGrid, Tooltip, Area, Legend, Responsi
 import Wrapper from '../shared/Wrapper';
 
 // COMPONENT
-const AreaChartGraph: React.FC<AreaChartProps> = ({ data, dataLabel}) => {
+const AreaChartGraph: React.FC<AreaChartProps> = ({ data, dataLabel, dataX }) => {
     return (
         <Wrapper>
             <ResponsiveContainer width="100%" height="100%">
@@ -17,11 +17,11 @@ const AreaChartGraph: React.FC<AreaChartProps> = ({ data, dataLabel}) => {
                         </linearGradient>
                     </defs>
                     <XAxis stroke="#ccc" />
-                    <YAxis stroke="#ccc"/>
+                    <YAxis stroke="#ccc" />
                     <Legend />
                     <CartesianGrid strokeDasharray="2 2" stroke="rgba(204, 204, 204, 0.5)" />
                     <Tooltip />
-                    <Area name={dataLabel} type="monotone" dataKey="x" stroke="#4CAF50" fillOpacity={1} fill="url(#colorUv)" />
+                    <Area name={dataLabel} type="monotone" dataKey={dataX} stroke="#4CAF50" fillOpacity={1} fill="url(#colorUv)" />
                 </AreaChart>
             </ResponsiveContainer>
         </Wrapper>

@@ -3,7 +3,7 @@ import socketIOClient from 'socket.io-client'
 
 const backendServer: string = import.meta.env.VITE_BACKEND_SERVER as string
 
-export const useSocket = <T>(eventName: string, socketUrl: string = backendServer) => {
+export const useSocket = <T>(eventName: string, logData: boolean = false, socketUrl: string = backendServer) => {
     const [data, setData] = useState<T[]>([]);
     const [isLoading, setIsLoading] = useState<boolean>(true);
 
@@ -13,6 +13,7 @@ export const useSocket = <T>(eventName: string, socketUrl: string = backendServe
         // connect to a socket 
         socket.on(eventName, (data: T[]) => {
             setData(data);
+            if (logData) console.log(data)
             setIsLoading(false);
         });
 
