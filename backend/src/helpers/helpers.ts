@@ -67,7 +67,7 @@ export const calculateCpuUtil = async (): Promise<isCpuUtil[] | isError> => {
         const load = await si.currentLoad()
         const coresUsage = load.cpus.map((cpu, index) => ({
             core: index,
-            load: cpu.load
+            load: +cpu.load
         }));
 
         return coresUsage
